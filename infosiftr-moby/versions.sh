@@ -11,7 +11,7 @@ source "$dir/../.libs/git.sh"
 debian='bookworm'
 json="$(jq -nc --arg debian "$debian" '{ debian: { version: $debian } }')"
 
-uri='https://apt.docker-pkg.xyz/moby'
+uri='https://apt.tianon.xyz/moby'
 component='main'
 
 for suite in \
