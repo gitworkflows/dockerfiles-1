@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 [ -d "$BASHBREW_SCRIPTS/github-actions" ]
 
-export BASHBREW_NAMESPACE='ghcr.io/docker-pkg'
+export BASHBREW_NAMESPACE='docker-pkg'
 
 strategy='{}'
 for gsl in */gsl.sh; do
