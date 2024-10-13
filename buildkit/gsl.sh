@@ -16,7 +16,7 @@ exec jq -r '
 	[
 		{
 			Maintainers: "Tianon Gravi <tianon@tianon.xyz> (@tianon)",
-			GitRepo: "https://github.com/tianon/dockerfiles.git",
+			GitRepo: "https://github.com/docker-pkg/dockerfiles.git",
 			GitCommit: env.commit,
 			Directory: env.dir,
 			Architectures: env.arches,
