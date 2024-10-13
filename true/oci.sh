@@ -47,7 +47,7 @@ jq -n -S --tab '
 		history: [
 			{
 				created: env.created,
-				created_by: "https://github.com/docker-pkg/dockerfiles/tree/master/true",
+				created_by: "https://github.com/tianon/dockerfiles/tree/master/true",
 			}
 		],
 		rootfs: {

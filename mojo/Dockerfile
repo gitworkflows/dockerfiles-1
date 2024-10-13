@@ -1,4 +1,4 @@
-FROM docker-pkg/perl
+FROM tianon/perl
 
 # TODO pin a version
 RUN cpanm Mojolicious && rm -rf ~/.cpanm

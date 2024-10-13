@@ -13,4 +13,4 @@ docker run -d \
 	-e "HOME=/host/$HOME" \
 	-w "/host/$HOME" \
 	-u "$(id -u):$(id -g)" \
-	docker-pkg/plex-media-server "$@"
+	tianon/plex-media-server "$@"

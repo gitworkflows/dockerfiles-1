@@ -5,12 +5,12 @@
 #
 
 # usage:
-#   $ docker build --tag docker-pkg/docker-master:build --target build - < Dockerfile
-#   $ docker run --rm docker-pkg/docker-master:build tar -cC /artifacts . | tar -xvC target-directory
+#   $ docker build --tag tianon/docker-master:build --target build - < Dockerfile
+#   $ docker run --rm tianon/docker-master:build tar -cC /artifacts . | tar -xvC target-directory
 #
-#   $ docker run -d --name dind --privileged --volume dind:/var/lib/docker docker-pkg/docker-master
+#   $ docker run -d --name dind --privileged --volume dind:/var/lib/docker tianon/docker-master
 
-FROM golang:1.21.0-bullseye AS build
+FROM golang:1.22.0-bookworm AS build
 
 RUN set -eux; \
 	apt-get update; \
@@ -33,7 +33,7 @@ ENV DOCKER_BUILDTAGS \
 
 WORKDIR /moby
 
-ARG CLI_GITCOMMIT=f75abad8a1d3bdc2ecf6705eac7634d37aac988f
+ARG CLI_GITCOMMIT=21eea1e0034038fcc0f96dce0d213c304e22c6d9
 ENV CLI_GITCOMMIT $CLI_GITCOMMIT
 
 RUN set -eux; \
@@ -54,7 +54,7 @@ RUN set -eux; \
 	docker --version; \
 	ldd /usr/local/bin/docker || :
 
-ARG MOBY_GITCOMMIT=0b9779f7ccd565308a897df8c1497f7ce08e9c7d
+ARG MOBY_GITCOMMIT=c9619248d04439c29fc10c19031bd3754e39b323
 ENV MOBY_GITCOMMIT $MOBY_GITCOMMIT
 
 RUN set -eux; \
@@ -114,9 +114,9 @@ RUN set -eux; \
 		chroot . "./$bin" --version; \
 	done
 
-FROM golang:1.21.0-bullseye AS buildx
+FROM golang:1.22.0-bookworm AS buildx
 
-ARG BUILDX_GITCOMMIT=c887c2c62a960736414dd0c7efde04223565be46
+ARG BUILDX_GITCOMMIT=1de332530f6c21e69ddf8577fbc7adcf0ae7c723
 ENV BUILDX_GITCOMMIT $BUILDX_GITCOMMIT
 
 RUN set -eux; \

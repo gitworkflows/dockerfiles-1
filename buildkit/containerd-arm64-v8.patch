@@ -1,5 +1,5 @@
 Description: normalize "linux/arm64" to "linux/arm64/v8" instead of the other direction
-Forwarded: no; presumably, the direction this went was intentional (Docker-pkg just disagrees, and the normalization allows him that)
+Forwarded: no; presumably, the direction this went was intentional (Tianon just disagrees, and the normalization allows him that)
 
 diff --git a/vendor/github.com/containerd/platforms/database.go b/vendor/github.com/containerd/platforms/database.go
 index 2e26fd3b4..5ef7d74d1 100644

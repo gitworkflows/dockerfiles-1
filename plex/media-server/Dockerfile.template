@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 RUN set -eux; \
 	apt-get update; \
@@ -13,7 +13,7 @@ RUN set -eux; \
 # https://github.com/plexinc/PlexMediaServer-Ubuntu/blob/1c48f4aa97a223143ec6a7bdbbb7942a15dc70cf/debian/start_pms
 ENV PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR /var/lib/plexmediaserver/Library/Application Support
 ENV PLEX_MEDIA_SERVER_HOME /usr/lib/plexmediaserver
-ENV PLEX_MEDIA_SERVER_INFO_VENDOR docker-pkg https://github.com/docker-pkg/dockerfiles/tree/HEAD/plex
+ENV PLEX_MEDIA_SERVER_INFO_VENDOR tianon https://github.com/tianon/dockerfiles/tree/HEAD/plex
 ENV PLEX_MEDIA_SERVER_INFO_DEVICE docker
 ENV PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS 6
 ENV PLEX_MEDIA_SERVER_TMPDIR /tmp

@@ -16,13 +16,13 @@ ignore *
 unignore date subject x- user-agent posted-to content-type
 unignore to cc bcc reply-to from
 set edit_headers = yes
-my_hdr X-Docker-Image: docker-pkg/mutt-gmail
+my_hdr X-Docker-Image: tianon/mutt-gmail
 my_hdr X-Shameless-Plug: irc://irc.oftc.net/%23debian-paultag-fanclub
 
 # TODO figure out how to use the sidebar more effectively :)
 set sidebar_visible = no
 
-# Docker-pkg keybindings and settings, because he's special.
+# Tianon keybindings and settings, because he's special.
 bind pager <up> previous-line
 bind pager <down> next-line
 set resolve = no # uh, don't randomly take me to other messages when I do things

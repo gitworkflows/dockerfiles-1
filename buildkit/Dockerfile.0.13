@@ -12,9 +12,11 @@ ENV BUILDKIT_VERSION 0.13.2
 COPY \
 	backport-5072-fetch-tags.patch \
 	backport-5096-fix-umask.patch \
+	backport-5372-sbom-args.patch \
+	backport-moby-48455-fix-riscv64-seccomp.patch \
 	containerd-arm64-v8-pre-0.15.patch \
 	git-no-submodules.patch \
-	mips64le.patch \
+	mips64le-pre-0.16.patch \
 	noclip.patch \
 	/tmp/buildkit-patches/
 
@@ -22,7 +24,9 @@ WORKDIR /app
 
 RUN set -eux; \
 	git clone --branch "v$BUILDKIT_VERSION" --depth 1 --config advice.detachedHead=false 'https://github.com/moby/buildkit.git' .; \
-	git apply /tmp/buildkit-patches/*.patch; \
+	for patch in /tmp/buildkit-patches/*.patch; do \
+		git apply --verbose "$patch"; \
+	done; \
 	git diff --color
 
 ENV CGO_ENABLED 0
@@ -43,8 +47,8 @@ RUN set -eux; \
 	pkg='github.com/moby/buildkit'; \
 	ldflags=" \
 		-d -w \
-		-X '$pkg/version.Version=$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 		-X '$pkg/version.Package=$pkg' \
 	"; \
 	go build -o /buildkitd -trimpath -ldflags "$ldflags" ./cmd/buildkitd; \
@@ -54,8 +58,8 @@ RUN set -eux; \
 	pkg='github.com/moby/buildkit/frontend/dockerfile/cmd/dockerfile-frontend'; \
 	ldflags=" \
 		-d -w \
-		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 		-X '$pkg/version.Package=$pkg' \
 	"; \
 	go build -o /dockerfile-frontend -trimpath -ldflags "$ldflags" ./frontend/dockerfile/cmd/dockerfile-frontend

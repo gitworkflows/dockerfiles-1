@@ -55,7 +55,7 @@ ctr_() {
 }
 ctr_ version > /dev/null
 
-testImage='ghcr.io/docker-pkg/true:yoloci'
+testImage='docker.io/tianon/true:yoloci'
 
 [ "$(ctr_ image ls -q | wc -l)" = '0' ]
 ctr_ content fetch "$testImage"

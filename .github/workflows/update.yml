@@ -68,8 +68,8 @@ jobs:
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Config
         run: |
-          git config user.name 'Docker-pkg (automated)'
-          git config user.email 'docker-pkg@docker-pkg.github.io'
+          git config user.name 'Tianon (automated)'
+          git config user.email 'tianon@tianon.xyz'
       - name: Rebase
         run: |
           if git fetch origin "$branch"; then
@@ -115,8 +115,8 @@ jobs:
           fetch-depth: 0
       - name: Config
         run: |
-          git config user.name 'Docker-pkg (automated)'
-          git config user.email 'docker-pkg@docker-pkg.github.io'
+          git config user.name 'Tianon (automated)'
+          git config user.email 'tianon@tianon.xyz'
       - name: Rebase
         run: |
           if git fetch origin "$branch"; then

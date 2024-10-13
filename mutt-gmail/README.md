@@ -9,6 +9,6 @@
         -v "$HOME/.signature:/home/user/.signature" \
         -v "$HOME/.muttrc:/home/user/.muttrc.local" \
         -v "$HOME/.mutt/cache:/home/user/.mutt/cache" \
-        docker-pkg/mutt-gmail
+        tianon/mutt-gmail
 
 If you wish to avoid the password prompt, use https://support.google.com/accounts/answer/185833?hl=en to generate an "app password" and set `GMAIL_PASS`.

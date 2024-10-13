@@ -10,6 +10,6 @@ $ docker run -it --rm \
 	-w /cwd \
 	-v "$HOME/.config/beets:$HOME/.config/beets" \
 	-e HOME \
-	docker-pkg/beets \
+	tianon/beets \
 	beet <subcommand>
 ```

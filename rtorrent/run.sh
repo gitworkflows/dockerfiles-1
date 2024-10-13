@@ -13,4 +13,4 @@ exec docker run -it --rm \
 	--env TERM \
 	--user "$(id -u):$(id -g)" \
 	--read-only \
-	docker-pkg/rtorrent "$@"
+	tianon/rtorrent "$@"

@@ -9,13 +9,13 @@ for df in "${dockerfiles[@]}"; do
 	if [ "$version" = 'template' ]; then
 		continue
 	fi
-	image="docker-pkg/cygwin:win$version"
-	( set -x; docker build --tag "docker-pkg/cygwin:win$version" --pull --file "$df" . )
+	image="tianon/cygwin:win$version"
+	( set -x; docker build --tag "tianon/cygwin:win$version" --pull --file "$df" . )
 	images+=( "$image" )
 done
 
 cat > latest.yml <<-'EOH'
-	image: docker-pkg/cygwin:latest
+	image: tianon/cygwin:latest
 	manifests:
 EOH
 for image in "${images[@]}"; do

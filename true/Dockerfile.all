@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim AS base
+FROM debian:bookworm-slim AS base
 RUN apt-get update && apt-get install -y --no-install-recommends make && rm -rf /var/lib/apt/lists/*
 WORKDIR /true
 COPY Makefile true*.* ./
@@ -21,7 +21,7 @@ RUN apk add --no-cache make
 COPY --from=base /true /true
 RUN make -C /true true-rust
 
-FROM ghcr.io/docker-pkg/tinygo AS tinygo
+FROM tianon/tinygo AS tinygo
 COPY --from=base /true /true
 RUN make -C /true true-tinygo
 

@@ -1,5 +1,5 @@
 {{ if env.variant != "" then .[env.variant] else . end | ( -}}
-{{ # https://github.com/docker-pkg/bashbrew/commit/823f2c4716e0c697a10a772e46a5d51c386a5dcc (bashbrew ~support for "--platform=$BUILDPLATFORM" specifically for this use case -- applied to Docker-pkg's own local builds) -}}
+{{ # https://github.com/tianon/bashbrew/commit/823f2c4716e0c697a10a772e46a5d51c386a5dcc (bashbrew ~support for "--platform=$BUILDPLATFORM" specifically for this use case -- applied to Tianon's own local builds) -}}
 FROM --platform=$BUILDPLATFORM golang:{{ .go.version }} AS build
 
 {{ if env.variant == "dev" then ( -}}
@@ -17,13 +17,21 @@ COPY \
 	backport-5072-fetch-tags.patch \
 	backport-5096-fix-umask.patch \
 {{) else "" end -}}
+{{ if .version | startswith("0.13.") or startswith("0.14.") or startswith("0.15.") or startswith("0.16.") then ( -}}
+	backport-5372-sbom-args.patch \
+	backport-moby-48455-fix-riscv64-seccomp.patch \
+{{) else "" end -}}
 {{ if .version | startswith("0.13.") or startswith("0.14.") then ( -}}
 	containerd-arm64-v8-pre-0.15.patch \
 {{ ) else ( -}}
 	containerd-arm64-v8.patch \
 {{ ) end -}}
 	git-no-submodules.patch \
+{{ if .version | startswith("0.13.") or startswith("0.14.") or startswith("0.15.") then ( -}}
+	mips64le-pre-0.16.patch \
+{{ ) else ( -}}
 	mips64le.patch \
+{{ ) end -}}
 	noclip.patch \
 {{ # linting was introduced in 0.14+ slash dockerfile/1.8.0 -}}
 {{ if .version | startswith("0.13.") then "" else ( -}}
@@ -42,7 +50,9 @@ RUN set -eux; \
 {{ ) else ( -}}
 	git clone --branch "v$BUILDKIT_VERSION" --depth 1 --config advice.detachedHead=false 'https://github.com/moby/buildkit.git' .; \
 {{ ) end -}}
-	git apply /tmp/buildkit-patches/*.patch; \
+	for patch in /tmp/buildkit-patches/*.patch; do \
+		git apply --verbose "$patch"; \
+	done; \
 	git diff --color
 
 ENV CGO_ENABLED 0
@@ -64,11 +74,11 @@ RUN set -eux; \
 	ldflags=" \
 		-d -w \
 {{ if env.variant == "dev" then ( -}}
-		-X '$pkg/version.Version={{ env.variant }}-docker-pkg' \
-		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+docker-pkg-patches' \
+		-X '$pkg/version.Version={{ env.variant }}-tianon' \
+		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+tianon-patches' \
 {{ ) else ( -}}
-		-X '$pkg/version.Version=$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 {{ ) end -}}
 		-X '$pkg/version.Package=$pkg' \
 	"; \
@@ -80,11 +90,11 @@ RUN set -eux; \
 	ldflags=" \
 		-d -w \
 {{ if env.variant == "dev" then ( -}}
-		-X '$pkg/version.Version={{ env.variant }}-docker-pkg' \
-		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+docker-pkg-patches' \
+		-X '$pkg/version.Version={{ env.variant }}-tianon' \
+		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+tianon-patches' \
 {{ ) else ( -}}
-		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 {{ ) end -}}
 		-X '$pkg/version.Package=$pkg' \
 	"; \

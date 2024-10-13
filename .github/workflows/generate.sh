@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 [ -d "$BASHBREW_SCRIPTS/github-actions" ]
 
-export BASHBREW_NAMESPACE='docker-pkg'
+export BASHBREW_NAMESPACE='tianon'
 
 strategy='{}'
 for gsl in */gsl.sh; do
@@ -12,17 +12,17 @@ for gsl in */gsl.sh; do
 	img="$BASHBREW_NAMESPACE/$img"
 	newStrategy="$(GENERATE_STACKBREW_LIBRARY="$gsl" GITHUB_REPOSITORY="$img" "$BASHBREW_SCRIPTS/github-actions/generate.sh")"
 	case "$img" in
-		'docker-pkg/infosiftr-moby')
+		'tianon/infosiftr-moby')
 			# remove per-architecture tags for now (temporary workaround for https://github.com/docker-library/bashbrew/pull/81)
-			newStrategy="$(jq -c 'del(.matrix.include[] | select(.meta.entries[].tags | contains(["docker-pkg/infosiftr-moby:latest"]) | not))' <<<"$newStrategy")"
+			newStrategy="$(jq -c 'del(.matrix.include[] | select(.meta.entries[].tags | contains(["tianon/infosiftr-moby:latest"]) | not))' <<<"$newStrategy")"
 			;;
 
-		'docker-pkg/cygwin')
+		'tianon/cygwin')
 			# remove tags that Windows on GitHub Actions can't test
 			newStrategy="$(jq -c 'del(.matrix.include[] | select(.os == "invalid-or-unknown"))' <<<"$newStrategy")"
 			;;
 
-		'docker-pkg/true')
+		'tianon/true')
 			# make sure our "true" binaries are correctly compiled
 			newStrategy="$(jq -c '
 				.matrix.include[].runs.build |= (
@@ -30,8 +30,8 @@ for gsl in */gsl.sh; do
 					| [
 						"[ -s true/\($binary) ]",
 						"rm -v true/\($binary)",
-						"docker build --pull --tag docker-pkg/true:builder --target asm --file true/Dockerfile.all true",
-						"docker run --rm docker-pkg/true:builder tar -cC /true \($binary) | tar -xvC true",
+						"docker build --pull --tag tianon/true:builder --target asm --file true/Dockerfile.all true",
+						"docker run --rm tianon/true:builder tar -cC /true \($binary) | tar -xvC true",
 						"git diff --exit-code true",
 						"[ -s true/\($binary) ]",
 						"true/\($binary)",

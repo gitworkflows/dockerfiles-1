@@ -15,8 +15,8 @@ export arches commit dir
 exec jq -r '
 	[
 		{
-			Maintainers: "docker pkg <docker-pkg@docker-pkg.github.io> (@docker-pkg)",
-			GitRepo: "https://github.com/docker-pkg/dockerfiles.git",
+			Maintainers: "Tianon Gravi <tianon@tianon.xyz> (@tianon)",
+			GitRepo: "https://github.com/tianon/dockerfiles.git",
 			GitCommit: env.commit,
 			Directory: env.dir,
 			Architectures: env.arches,

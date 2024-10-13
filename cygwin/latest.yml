@@ -1,4 +1,4 @@
-image: docker-pkg/cygwin:latest
+image: tianon/cygwin:latest
 manifests:
-  - image: docker-pkg/cygwin:winltsc2022
-  - image: docker-pkg/cygwin:win1809
+  - image: tianon/cygwin:winltsc2022
+  - image: tianon/cygwin:win1809

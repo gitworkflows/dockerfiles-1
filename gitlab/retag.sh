@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 src='gitlab/gitlab-ce'
-dst='docker-pkg/gitlab'
+dst='tianon/gitlab'
 
 tags="$(
 	crane ls "$src" \

@@ -4,13 +4,13 @@ set -Eeuo pipefail
 # TODO refactor this to create an oci-layout that we could just "crane push"
 
 targetRepo='hell/win'
-targetRegistry='https://registry-1.ghcr.io'
+targetRegistry='https://registry-1.docker.io'
 #targetRegistry='http://registry.docker:5000'
 
-auth="$(jq -r '.auths."https://index.ghcr.io/v1/".auth' ~/.docker/config.json | base64 -d)"
+auth="$(jq -r '.auths."https://index.docker.io/v1/".auth' ~/.docker/config.json | base64 -d)"
 [ -n "$auth" ]
 
-token="$(curl -fsSL "https://$auth@auth.ghcr.io/token?service=registry.ghcr.io&scope=repository:$targetRepo:push,pull" | jq --raw-output '.token')"
+token="$(curl -fsSL "https://$auth@auth.docker.io/token?service=registry.docker.io&scope=repository:$targetRepo:push,pull" | jq --raw-output '.token')"
 
 curl_auth() {
 	if [ -n "${token:-}" ]; then

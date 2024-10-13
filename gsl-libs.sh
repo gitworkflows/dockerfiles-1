@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 : "${dockerfile:=Dockerfile}"
-: "${variantAppendOrder:=postfix}" # "postfix" or "prefix" ("docker-pkg/foo:1.2.3-bar" vs "docker-pkg/foo:bar-1.2.3")
+: "${variantAppendOrder:=postfix}" # "postfix" or "prefix" ("tianon/foo:1.2.3-bar" vs "tianon/foo:bar-1.2.3")
 declare -a extraCommitFiles
 
 # get the most recent commit which modified any of "$@"
@@ -39,8 +39,8 @@ join() {
 
 globalEntry() {
 	cat <<-EOH
-		Maintainers: docker pkg <docker-pkg@docker-pkg.github.io> (@docker-pkg)
-		GitRepo: https://github.com/${2:-docker-pkg}/${1:-dockerfiles}.git
+		Maintainers: Tianon Gravi <tianon@tianon.xyz> (@tianon)
+		GitRepo: https://github.com/${2:-tianon}/${1:-dockerfiles}.git
 	EOH
 }
 
