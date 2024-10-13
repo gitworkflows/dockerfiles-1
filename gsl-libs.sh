@@ -39,7 +39,7 @@ join() {
 
 globalEntry() {
 	cat <<-EOH
-		Maintainers: Docker-pkg Gravi <docker-pkg@docker-pkg.xyz> (@docker-pkg)
+		Maintainers: docker pkg <docker-pkg@docker-pkg.github.io> (@docker-pkg)
 		GitRepo: https://github.com/${2:-docker-pkg}/${1:-dockerfiles}.git
 	EOH
 }

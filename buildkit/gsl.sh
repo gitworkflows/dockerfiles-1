@@ -15,7 +15,7 @@ export arches commit dir
 exec jq -r '
 	[
 		{
-			Maintainers: "Docker-pkg Gravi <docker-pkg@docker-pkg.xyz> (@docker-pkg)",
+			Maintainers: "docker pkg <docker-pkg@docker-pkg.github.io> (@docker-pkg)",
 			GitRepo: "https://github.com/docker-pkg/dockerfiles.git",
 			GitCommit: env.commit,
 			Directory: env.dir,

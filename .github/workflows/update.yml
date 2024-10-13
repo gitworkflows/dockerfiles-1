@@ -69,7 +69,7 @@ jobs:
       - name: Config
         run: |
           git config user.name 'Docker-pkg (automated)'
-          git config user.email 'docker-pkg@docker-pkg.xyz'
+          git config user.email 'docker-pkg@docker-pkg.github.io'
       - name: Rebase
         run: |
           if git fetch origin "$branch"; then
@@ -116,7 +116,7 @@ jobs:
       - name: Config
         run: |
           git config user.name 'Docker-pkg (automated)'
-          git config user.email 'docker-pkg@docker-pkg.xyz'
+          git config user.email 'docker-pkg@docker-pkg.github.io'
       - name: Rebase
         run: |
           if git fetch origin "$branch"; then

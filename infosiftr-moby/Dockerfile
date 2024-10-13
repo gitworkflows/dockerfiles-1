@@ -17,21 +17,21 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-# https://apt.docker-pkg.xyz/moby
-# https://apt.docker-pkg.xyz/moby/dists/bookworm/docker-pkg-moby.sources
+# https://apt.docker-pkg.github.io/moby
+# https://apt.docker-pkg.github.io/moby/dists/bookworm/docker-pkg-moby.sources
 RUN echo 'deb [ allow-insecure=yes trusted=yes ] https://apt.tianon.xyz/moby bookworm main' > /etc/apt/sources.list.d/moby.list
 # TODO deb822
 
-# http://apt.docker-pkg.xyz/moby/pool/bookworm/main/moby-engine/
+# http://apt.docker-pkg.github.io/moby/pool/bookworm/main/moby-engine/
 ENV MOBY_ENGINE_VERSION 23.0.11-2~deb12u0
-# http://apt.docker-pkg.xyz/moby/pool/bookworm/main/moby-containerd/
+# http://apt.docker-pkg.github.io/moby/pool/bookworm/main/moby-containerd/
 ENV MOBY_CONTAINERD_VERSION 1.6.32-2~deb12u0
-# http://apt.docker-pkg.xyz/moby/pool/bookworm/main/moby-runc/
+# http://apt.docker-pkg.github.io/moby/pool/bookworm/main/moby-runc/
 ENV MOBY_RUNC_VERSION 1.1.12-1~deb12u0
 
-# http://apt.docker-pkg.xyz/moby/pool/bookworm/main/moby-cli/
+# http://apt.docker-pkg.github.io/moby/pool/bookworm/main/moby-cli/
 ENV MOBY_CLI_VERSION 23.0.10-1~deb12u0
-# http://apt.docker-pkg.xyz/moby/pool/bookworm/main/moby-buildx/
+# http://apt.docker-pkg.github.io/moby/pool/bookworm/main/moby-buildx/
 ENV MOBY_BUILDX_VERSION 0.14.1-1~deb12u0
 
 RUN set -eux; \
