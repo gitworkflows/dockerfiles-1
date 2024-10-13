@@ -21,7 +21,7 @@ RUN apk add --no-cache make
 COPY --from=base /true /true
 RUN make -C /true true-rust
 
-FROM docker-pkg/tinygo AS tinygo
+FROM ghcr.io/docker-pkg/tinygo AS tinygo
 COPY --from=base /true /true
 RUN make -C /true true-tinygo
 
